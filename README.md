@@ -16,7 +16,7 @@ require_once './phpSimpleMailer/phpSimpleMailerAutoload.php';
 2.配置邮箱账号、授权码信息、端口号等
 
 ~~~~
-$mail = new PHPMailer;
+$mail = new phpSimpleMailer;
 //登录的账号 这里填入字符串格式的qq号即可
 $mail->Username = 'qrfvim@qq.com';
 // 这个就是之前得到的授权码，一共16位

@@ -10,7 +10,7 @@ $webPath  = '';
 
 $mailServer =
 
-$mail = new PHPMailer;
+$mail = new phpSimpleMailer;
 
 //登录的账号 这里填入字符串格式的qq号即可
 $mail->Username = 'qrfvim@qq.com';
