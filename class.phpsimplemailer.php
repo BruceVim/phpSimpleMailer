@@ -4263,7 +4263,7 @@ class phpSimpleMailer
      * @Date 2020-8-13
      * @Author Bruce Vim < qrfvim@163.com >
      */
-    function getAttach($mid,$path='')
+    function getAttach($mid,$path)
     {
         if(!$this->marubox)
             return false;
@@ -4299,7 +4299,7 @@ class phpSimpleMailer
 
                     $message = imap_fetchbody($this->marubox,$mid,$key+1);
 
-                    if (in_array($enc, [0, 1])) {
+                    if (in_array($enc, array(0, 1))) {
                         $message = imap_8bit($message);
                     }
                     elseif ($enc == 2) {
@@ -4313,7 +4313,7 @@ class phpSimpleMailer
                     }
 
                     //文件存储路径
-                    $file_path = $path.$file['pathname'];
+                    $file_path = $path . DIRECTORY_SEPARATOR . $file['pathname'];
                     $file_dir_path = dirname($file_path);
                     if (!is_dir($file_dir_path)) {
                         mkdir($file_dir_path,0755,true);
@@ -4346,7 +4346,7 @@ class phpSimpleMailer
                             $partnro = ($key+1).".".($keyb+1);
                             $message = imap_fetchbody($this->marubox,$mid,$partnro);
 
-                            if (in_array($enc, [0, 1])) {
+                            if (in_array($enc, array(0, 1))) {
                                 $message = imap_8bit($message);
                             }
                             elseif ($enc == 2) {

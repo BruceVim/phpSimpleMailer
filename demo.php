@@ -27,7 +27,7 @@ if(0 == count($unseen_mails)) { //如果信件数为0,显示信息
     return array('msg'=>$msg);
 }
 
-$path = '/var/www/demo/tmp/';
+$path = '/var/www/demo/tmp';
 foreach ($unseen_mails as $m_id) {
     $head=$mail->getHeaders($m_id);
     //处理邮件附件
