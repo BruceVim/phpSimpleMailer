@@ -48,7 +48,7 @@ $files_path = [];
 if (!empty($files)) {
     foreach ($files as $file) {
         $tmp = [];
-        $tmp['path'] = '/var/www/demo/vim_test/phpSimpleMailer/attachment/' . $file['pathname'];
+        $tmp['path'] = __FILE__ . 'phpSimpleMailer/attachment/'.$file['pathname'];
         $tmp['title'] = $file['title'];
         $files_path[] = $tmp;
     }
