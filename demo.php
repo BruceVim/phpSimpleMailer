@@ -5,9 +5,6 @@ ini_set('display_errors', 1);
 require_once './phpSimpleMailerAutoload.php';
 
 
-$savePath = '';
-$webPath  = '';
-
 $mailServer =
 
 $mail = new phpSimpleMailer;
@@ -30,10 +27,11 @@ if(0 == count($unseen_mails)) { //如果信件数为0,显示信息
     return array('msg'=>$msg);
 }
 
+$path = '/var/www/demo/tmp/';
 foreach ($unseen_mails as $m_id) {
     $head=$mail->getHeaders($m_id);
     //处理邮件附件
-    $files=$mail->GetAttach($m_id); // 获取邮件附件，返回的邮件附件信息数组
+    $files=$mail->GetAttach($m_id, $path); // 获取邮件附件，返回的邮件附件信息数组
 
     $imageList=array();
     foreach($files as $k => $file)
@@ -44,7 +42,7 @@ foreach ($unseen_mails as $m_id) {
             $imageList[$file['title']]=$file['pathname'];
         }
     }
-    $body = $mail->getBody($m_id,$webPath,$imageList);
+    $body = $mail->getBody($m_id,'',$imageList);
 
     $res['mail'][]=array(
         'head' => $head,

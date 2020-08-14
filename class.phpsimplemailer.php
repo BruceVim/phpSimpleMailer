@@ -4313,7 +4313,7 @@ class phpSimpleMailer
                     }
 
                     //文件存储路径
-                    $file_path = dirname(__FILE__).'/attachment/'.$path.$file['pathname'];
+                    $file_path = $path.$file['pathname'];
                     $file_dir_path = dirname($file_path);
                     if (!is_dir($file_dir_path)) {
                         mkdir($file_dir_path,0755,true);
