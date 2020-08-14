@@ -30,9 +30,12 @@ $mail->imapPort = '993';
 ~~~~
 $receiveObj = $mail->receiveConnect();
 $unseen_mails = $mail->getUnseenMails(); //获取未读邮件数量
-$head=$mail->getHeaders($m_id);  //获取头部
-$files=$mail->GetAttach($m_id); // 获取邮件附件，返回的邮件附件信息数组
-$body = $mail->getBody($m_id,$webPath,$imageList); //获取邮件内容
+
+foreach ($unseen_mails as $m_id) {
+    $head=$mail->getHeaders($m_id);  //获取头部
+    $files=$mail->GetAttach($m_id); // 获取邮件附件，返回的邮件附件信息数组
+    $body = $mail->getBody($m_id,$webPath,$imageList); //获取邮件内容
+}
 ~~~~
 
 4.邮件发送 封装了PHPMailer的逻辑，直接调用即可，也可以看PHPMailer自行封装改造
