@@ -4440,7 +4440,7 @@ class phpSimpleMailer
             }
             if($structure->type == 1) /* multipart */
             {
-                while(list($index, $sub_structure) = each($structure->parts))
+                foreach ($structure->parts as $index => $sub_structure) {
                 {
                     $prefix = '';
                     if($part_number)
