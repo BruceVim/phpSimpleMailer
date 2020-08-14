@@ -4441,7 +4441,6 @@ class phpSimpleMailer
             if($structure->type == 1) /* multipart */
             {
                 foreach ($structure->parts as $index => $sub_structure) {
-                {
                     $prefix = '';
                     if($part_number)
                     {
