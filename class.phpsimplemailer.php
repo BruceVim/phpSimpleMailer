@@ -4065,8 +4065,8 @@ class phpSimpleMailer
         $this->Subject = $title;
         // 该邮件的正文内容
         $this->Body = $content;
-
-
+        
+        $this->clearAttachments();
         //附件
         if (count($files_path)) {
             foreach ($files_path as $file) {
