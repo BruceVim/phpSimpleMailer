@@ -45,7 +45,8 @@ class phpSimpleMailer
      * The character set of the message.
      * @var string
      */
-    public $CharSet = 'iso-8859-1';
+    //public $CharSet = 'iso-8859-1';
+    public $CharSet = 'UTF-8';
 
     /**
      * The MIME Content-type of the message.
@@ -4060,17 +4061,24 @@ class phpSimpleMailer
         //smtp需要鉴权 这个必须是true
         $this->SMTPAuth = true;
         // $to 为收件人的邮箱地址，如果想一次性发送向多个邮箱地址，则只需要将下面这个方法多次调用即可
-        $this->addAddress($to);
+        if (is_array($to)) {
+            foreach ($to as $_to) {
+                $this->addAddress($_to);
+            }
+        } else {
+            $this->addAddress($to);
+        }
+
         // 该邮件的主题
-        $this->Subject = $title;
+        $this->Subject = $this -> transformZhChar($title);
         // 该邮件的正文内容
         $this->Body = $content;
-        
+
         $this->clearAttachments();
         //附件
         if (count($files_path)) {
             foreach ($files_path as $file) {
-                $this->addAttachment($file['path'], $file['title']);
+                $this->addAttachment($file['path'], $this -> transformZhChar($file['title']));
             }
         }
 
@@ -4617,6 +4625,17 @@ class phpSimpleMailer
     public function setPathName($fileID, $extension)
     {
         return date('Ym/dHis', time()) . $fileID . mt_rand(0, 10000) . '.' . $extension;
+    }
+
+    /**
+     * 转换中文字符，防止中文乱码
+     * @param $str
+     * @return string
+     * @Date 2020-8-20
+     * @Author Bruce Vim < qrfvim@163.com >
+     */
+    public function transformZhChar($str) {
+        return "=?utf-8?B?" . base64_encode( $str ) . "?=";
     }
 }
 
