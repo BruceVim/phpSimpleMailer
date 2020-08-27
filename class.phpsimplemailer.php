@@ -1784,7 +1784,7 @@ class phpSimpleMailer
         }
 
         // Define full set of translatable strings in English
-        $PHPMAILER_LANG = array(
+        /*$PHPMAILER_LANG = array(
             'authenticate' => 'SMTP Error: Could not authenticate.',
             'connect_host' => 'SMTP Error: Could not connect to SMTP host.',
             'data_not_accepted' => 'SMTP Error: data not accepted.',
@@ -1804,6 +1804,27 @@ class phpSimpleMailer
             'smtp_error' => 'SMTP server error: ',
             'variable_set' => 'Cannot set or reset variable: ',
             'extension_missing' => 'Extension missing: '
+        );*/
+        $PHPMAILER_LANG = array(
+            'authenticate'=>'SMTP错误：无法验证。',
+            'connect_host'=>'SMTP错误：无法连接到SMTP主机。',
+            'data_not_accepted'=>'SMTP错误：不接受数据。',
+            'empty_message'=>'邮件正文为空',
+            'encoding'=>'未知编码：',
+            'execute'=>'无法执行：',
+            'file_access'=>'无法访问文件：',
+            'file_open'=>'文件错误：无法打开文件：',
+            'from_failed'=>'以下发件人地址失败：',
+            'instantiate'=>'无法实例化邮件功能。',
+            'invalid_address'=>'无效地址：',
+            'mailer_not_supported'=>'不支持邮件程序。',
+            'provide_address'=>'您必须提供至少一个收件人电子邮件地址。',
+            'recipients_failed'=>'SMTP错误：以下收件人失败：',
+            'signing'=>'签名错误：',
+            'smtp_connect_failed'=>'SMTP 连接失败，请检查密钥是否正确。',
+            'smtp_error'=>'SMTP服务器错误：',
+            'variable_set'=>'无法设置或重置变量：',
+            'extension_missing'=>'扩展名丢失：'
         );
         if (empty($lang_path)) {
             // Calculate an absolute path so it can work if CWD is not here
@@ -3340,7 +3361,7 @@ class phpSimpleMailer
     protected function lang($key)
     {
         if (count($this->language) < 1) {
-            $this->setLanguage('en'); // set the default language
+            $this->setLanguage('zh'); // set the default language
         }
 
         if (array_key_exists($key, $this->language)) {
@@ -3348,7 +3369,7 @@ class phpSimpleMailer
                 //Include a link to troubleshooting docs on SMTP connection failure
                 //this is by far the biggest cause of support questions
                 //but it's usually not PHPMailer's fault.
-                return $this->language[$key] . ' https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting';
+                return $this->language[$key];
             }
             return $this->language[$key];
         } else {
@@ -4066,6 +4087,7 @@ class phpSimpleMailer
         $this->isSMTP();
         //smtp需要鉴权 这个必须是true
         $this->SMTPAuth = true;
+
         // $to 为收件人的邮箱地址，如果想一次性发送向多个邮箱地址，则只需要将下面这个方法多次调用即可
         if (is_array($to)) {
             foreach ($to as $_to) {
@@ -4081,8 +4103,9 @@ class phpSimpleMailer
         $this->Body = $content;
 
         //附件
-        if (count($files_path)) {
+        if (is_array($files_path) && count($files_path)) {
             foreach ($files_path as $file) {
+                if (empty($file['title'])) {$file['title'] = '';}
                 $this->addAttachment($file['path'], $this -> transformZhChar($file['title']));
             }
         }
@@ -4640,6 +4663,7 @@ class phpSimpleMailer
      * @Author Bruce Vim < qrfvim@163.com >
      */
     public function transformZhChar($str) {
+        if (empty($str)) return $str;
         return "=?utf-8?B?" . base64_encode( $str ) . "?=";
     }
 }
