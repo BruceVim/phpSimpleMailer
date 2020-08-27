@@ -4056,6 +4056,12 @@ class phpSimpleMailer
     }
 
     public function sendSMTPMail($to,$title,$content, $files_path=array()) {
+        //初始化，清空缓存
+        $this->clearAttachments();
+        $this->clearAllRecipients();
+        $this->clearQueuedAddresses('to');
+        $this->clearCustomHeaders();
+
         //使用smtp鉴权方式发送邮件
         $this->isSMTP();
         //smtp需要鉴权 这个必须是true
@@ -4074,7 +4080,6 @@ class phpSimpleMailer
         // 该邮件的正文内容
         $this->Body = $content;
 
-        $this->clearAttachments();
         //附件
         if (count($files_path)) {
             foreach ($files_path as $file) {
