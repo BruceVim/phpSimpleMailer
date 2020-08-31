@@ -4422,13 +4422,13 @@ class phpSimpleMailer
     /**
      * 获取邮件文本内容
      * @param $mid
-     * @param $path
+     * @param string $path
      * @param $imageList
      * @return bool|string|string[]|void
-     * @Date 2020-8-13
+     * @Date 2020-8-31
      * @Author Bruce Vim < qrfvim@163.com >
      */
-    function getBody($mid,$path='',$imageList, $is_html=false)
+    function getBody($mid,$path='',$imageList)
     {
         if(!$this->marubox)
             return false;
@@ -4442,9 +4442,6 @@ class phpSimpleMailer
 
         //处理图片
         $body=$this->embedImages($body,$path,$imageList);
-        if (!$is_html) {
-            $body = $this -> remove_html_tag($body);
-        }
         return $body;
     }
 

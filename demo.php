@@ -71,6 +71,7 @@ foreach ($unseen_mails as $m_id) {
                 $files_path[] = $tmp;
             }
         }
+        $mail->isHTML();
         $send_res = $mail->sendSMTPMail($to,$title,'今天下午开会', $files_path);
     }
 
