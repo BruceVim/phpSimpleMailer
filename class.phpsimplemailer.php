@@ -4583,7 +4583,7 @@ class phpSimpleMailer
             if ($arr['scheme']!="http")
             {
                 $filename=explode("@", $arr['path']);
-                $body = str_replace($img, '<img alt="" src="'.$path.$imageList[$filename[0]].'" style="border: none;" />', $body);
+                isset($imageList[$filename[0]]) && $body = str_replace($img, '<img alt="" src="'.$path.$imageList[$filename[0]].'" style="border: none;" />', $body);
             }
         }
         return $body;
